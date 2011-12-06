@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Salesforce::VERSION
   s.authors     = ["Tomas Svarovsky"]
   s.email       = ["svarovsky.tomas@gmail.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "https://github.com/fluke777/salesforce"
+  s.summary     = %q{Small gem that wraps common tasks that I do with Salesforce}
+  s.description = %q{Small gem that wraps common tasks that I do with Salesforce}
 
   s.rubyforge_project = "salesforce"
 
