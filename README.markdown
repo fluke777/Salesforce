@@ -4,11 +4,12 @@ This is a wrapper for couple of things I usually do with SF
 Installation
 ------------
 
-Prerequisite is having git, ruby and gems installed.
+Prerequisite is having git, ruby and gems installed (also you should have XCode installed since there probably will be need to compile some C code in the background).
 
     gem install bundler
     git clone git://github.com/fluke777/salesforce.git
     cd salesforce
+    bundle install
     rake install
 
 
