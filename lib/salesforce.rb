@@ -11,7 +11,8 @@ module Salesforce
     attr_accessor :rforce_binding
 
     def initialize(login, pass, options = {})
-      url = options[:url] || 'https://www.salesforce.com/services/Soap/u/26.0'
+      server = options[:server] || "www.salesforce.com"
+      url = options[:url] || "https://#{server}/services/Soap/u/26.0"
       @rforce_binding = RForce::Binding.new url
       @rforce_binding.login login, pass
     end
