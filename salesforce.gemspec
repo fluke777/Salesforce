@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "salesforce/version"
 
 Gem::Specification.new do |s|
-  s.name        = "salesforce"
+  s.name        = "gd_salesforce"
   s.version     = Salesforce::VERSION
   s.authors     = ["Tomas Svarovsky"]
   s.email       = ["svarovsky.tomas@gmail.com"]
