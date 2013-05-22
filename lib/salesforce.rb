@@ -35,7 +35,7 @@ module Salesforce
       fields.map {|f| f[:name]}
     end
 
-    def grab(options)
+    def grab(options={})
       sf_module = options[:module] || fail("Specify SFDC module")
       fields = options[:fields]
       rforce_binding = @rforce_binding
@@ -54,14 +54,16 @@ module Salesforce
       query(query, options.merge(:values => values))
     end
 
-    def query(query, options)
+    def query(query, options={})
       values = options[:values]
       as_hash = options[:as_hash]
       counter = 1
-      fail "If you want to return array you need to specify fields in values key" if !as_hash && values.nil?
-      
+      as_hash = true if !as_hash && values.nil?
+
       rforce_binding = @rforce_binding
-      output = options[:output]
+
+      output = options[:output] || []
+
       begin
         answer = rforce_binding.query({:queryString => query, :batchSize => 2000})
       rescue Timeout::Error => e
@@ -73,7 +75,7 @@ module Salesforce
         fail answer[:Fault][:faultstring] if answer[:Fault] && answer[:Fault][:faultstring]
         fail "An unknown error occured while querying salesforce."
       end
-      
+
       answer[:queryResponse][:result][:records].each {|row| output << (as_hash ? row : row.values_at(*values))} if answer[:queryResponse][:result][:size].to_i > 0
 
       more_locator = answer[:queryResponse][:result][:queryLocator]
@@ -85,6 +87,7 @@ module Salesforce
         end
         more_locator = answer_more[:queryMoreResponse][:result][:queryLocator]
       end
+      output
     end
 
     def get_deleted(options={})
