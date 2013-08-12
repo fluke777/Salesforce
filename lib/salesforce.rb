@@ -18,7 +18,9 @@ module Salesforce
     end
 
     def describe(mod)
-      @rforce_binding.describeSObject(:sObject => mod)
+      response = @rforce_binding.describeSObject(:sObject => mod)
+      fail(response.to_s) if response.keys.first == :Fault
+      response
     end
 
     def modules
