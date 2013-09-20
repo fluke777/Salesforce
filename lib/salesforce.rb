@@ -28,13 +28,18 @@ module Salesforce
       modules = g[:describeGlobalResponse][:result][:sobjects]
     end
 
-    def fields(mod)
+    def fields(mod, options={})
       result = @rforce_binding.describeSObject(:sObject => mod)
       if result.has_key?(:Fault)
+        binding.pry
         fail result
       end
       fields = result[:describeSObjectResponse][:result][:fields]
-      fields.map {|f| f[:name]}
+      if (options[:with_details] == true)
+        fields
+      else
+        fields.map {|f| f[:name]}
+      end
     end
 
     def grab(options={})
