@@ -181,4 +181,13 @@ module Salesforce
     end
 
   end
+  class AuthenticatedClient < Client
+    def initialize(sf_server, session_id)
+      server = "https://#{sf_server}/services/Soap/u/26.0"
+      @rforce_binding = RForce::Binding.new(
+        server,
+        session_id
+      )
+    end
+  end
 end
