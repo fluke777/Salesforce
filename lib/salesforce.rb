@@ -25,7 +25,8 @@ module Salesforce
 
     def modules
       g = @rforce_binding.describeGlobal
-      modules = g[:describeGlobalResponse][:result][:sobjects]
+      modules = (g[:describeGlobalResponse].nil? || g[:describeGlobalResponse][:result].nil?) ?
+          [] : g[:describeGlobalResponse][:result][:sobjects]
     end
 
     def fields(mod, options={})
