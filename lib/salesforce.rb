@@ -25,7 +25,8 @@ module Salesforce
 
     def modules
       g = @rforce_binding.describeGlobal
-      modules = g[:describeGlobalResponse][:result][:sobjects]
+      modules = (g[:describeGlobalResponse].nil? || g[:describeGlobalResponse][:result].nil?) ?
+          [] : g[:describeGlobalResponse][:result][:sobjects]
     end
 
     def fields(mod, options={})
@@ -180,5 +181,14 @@ module Salesforce
       update_answer[:getUpdatedResponse][:result][:latestDateCovered]
     end
 
+  end
+  class AuthenticatedClient < Client
+    def initialize(sf_server, session_id)
+      server = "https://#{sf_server}/services/Soap/u/26.0"
+      @rforce_binding = RForce::Binding.new(
+        server,
+        session_id
+      )
+    end
   end
 end
